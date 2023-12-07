@@ -14,6 +14,10 @@ The TRP does not:
 * multi-lingual support will NOT be created as the API (protcol) is intended for non-human use. That said, we will need some ability to map identifiers (e.g. AssuranceLevelType.identifier) to human-readable names and descriptions. 
 * Registry, Entity Authorizations, and Registry of Registry functionality are interwoven. Which leads to...
 
+* The UML Diagram refers to the root being an EGFURI (by VID?) but the OAS does not. Need to decide if the API is 1:1 EGFURI:TR and leave any other EGFs in some other place? Defaults?
+
+
+
 ## ISSUE - Querying vs. Snooping
 
 Querying the most basic query "Does this Entity (identified with VID) have this Authorization (identified with VID)?" feels too complex.
@@ -29,7 +33,16 @@ OPTIONS:
   * This (i.e. returning 405) is an odd way of dealing with an issue. 
 * create 2 (or more) APIs - most basic and richer?
 * other???
+* Should we EVER allow listing DIDs???? Sankarshan GREAT QUESTION
 
+## TODO:
+
+* Logging/Surveillance/Attacks - how do Trust Registries mitigate Adversarial Impacts
+  * ISSUE - bullet-list it to Tom
+  * privacy/phone-home concerns -> 
+  * adversarial approach -> 
+* TR Use Cases - @Antti to 
+* 
 
 ## UPDATE 2023-12-07
 
@@ -45,6 +58,12 @@ Key changes made:
     * Direct - JSON payload?
   * NAMESPACES - added (early) namespaces concept. 
 
+later (same day):
+
+* shifted to use VID instead of Uri and DID.
+* refactored tags in Swagger
+* added Offline/TrustEstablishmentDocument suppport/placeholders
+* adjusted main root to drop "/query/" for main items (Entities, Registries, Resources)
 
 
 ## Requirements
@@ -61,6 +80,12 @@ Requirements capture is located at:
 The first "concrete" API specification is an Open API Specification v3 YAML file. 
 
 [OAS (.yaml) for TRP v2](../v2/api/WIP.toip.trustregistry.api.yaml)
+
+
+
+## NOTES
+
+* Sankarshan used a term to limit where we say "trust registry" 
 
 
 

@@ -8,25 +8,29 @@ package EGF {
 
 }
 
+
+
 ' object Error 
 class TrustRegistry {
     EGFURI
+    Entity(VID):   Entity
+    Registry(VID): Registry
+    Resource(VID): Resource
+    Registries():  RegistryList
+    Resources():   ResourceList
     RegistryMetadata: Metadata
+    Lookups()
+    OfflineCopy()
 }
 
-class RegistryOfRegistries {
-    FindDID()
-    FindRegistry()
-    ListRegistries()
+' class RegistryOfRegistries {
+'     FindDID()
+'     FindRegistry()
+'     ListRegistries()
 
 
-}
+' }
 
-class Query {
-    Entities
-    Registries
-    Resources
-}
 
 class Lookup {
     Namespaces()
@@ -45,27 +49,25 @@ class Metadata {
     EGFURI: URI ' (duplicated above)
     TrustRegistryName: string
     RawAPIEndpoint: URL 
-    AuthorityClaim: string 
+    ' AuthorityClaim: string 
     lastUpdated: datetime 
     namespaces: string[]
     
 
-    Languages() 
+    ' Languages() 
 }
 
 ' inheritance
 EGF "1" -- "1" TrustRegistry
 
-TrustRegistry <|-- Query
+
 TrustRegistry <|-- Lookup 
 
 package QueryDataObjects {
     
-
     class RegistryList
     class ResourceList
     class EntityList
-
 
     class Entity {
         identifier: VID
@@ -128,9 +130,24 @@ package Lookups {
 }
 
 
-Query::Entities --> EntityList
-Query::Resources --> ResourceList
-Query::Registries --> RegistryList
+class ExportFile {
+    Lookups.DIDMethods
+    Lookups.AssuranceLevels
+    Lookups.Authorizations
+    Lookups.Namepaces 
+    Entities: EntityList
+    Registries: RegistryList
+    Resources: ResourceList 
+    Metadata 
+    Validity
+
+
+}
+
+Class ValidityDatesType {
+    validFromDT: datetime
+    validtoDT: datetime
+}
 
 EntityList o-- "0..n" Entity
 RegistryList  o-- "0..n" Registry
@@ -145,8 +162,13 @@ Lookup::Namespaces --> NamespaceList
 
 ' METADATA related objects
 TrustRegistry --> Metadata 
+TrustRegistry::Entity --> Entity 
+TrustRegistry::Registry --> Registry
+TrustRegistry::Resource --> Resource
+TrustRegistry::Registries --> RegistryList 
+TrustRegistry::Resources --> ResourceList
 
-
+ExportFile::Validity --> ValidityDatesType
 
 DIDMethodList o-- "1...n" DIDMethod 
 AuthorizationList o-- "0...n" Authorization
@@ -154,20 +176,15 @@ NamespaceList o-- "0..n" Namespace
 ' ResourceTypeList o-- "0...n" ResourceType
 
 
-'' High-Level lots of specific classes
-' Lookup::CredentialTypes --> CredentialTypeList
-' Lookup::CredentialSchemas --> CredentialSchemaList
-' Lookup::PresentationRequests --> PresentationRequestList
-' Lookup::Overlays --> OverlayList
-' Lookup::CredentialTypes --> CredentialTypeList
-' Lookup::CredentialSchemas --> CredentialSchemaList
-' Lookup::PresentationRequests --> PresentationRequestList
-' Lookup::Overlays --> OverlayList
-' CredentialTypeList o-- "0..n" CredentialType
-' CredentialSchemaList o-- "0..n" CredentialSchema
-' CredentialType o-- CredentialSchema
-' PresentationRequestList o-- "0..n" PresentationRequest
-' OverlayList o-- "0...n" Overlay
+'' EXPORT FILE
+TrustRegistry::OfflineCopy --> ExportFile
+' ExportFile --> NamespaceList
+' ExportFile --> DIDMethodList
+' ExportFile --> AssuranceLevelsList
+' ExportFile --> AuthorizationList
+' ExportFile --> ResourceList 
+' ExportFile --> EntityList
+
 
 AssuranceLevelsList o-- "0...n" AssuranceLevel
 
