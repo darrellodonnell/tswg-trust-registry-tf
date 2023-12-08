@@ -32,6 +32,8 @@ tags:
     description: Metadata operations.
   - name: offline
     description: Offline operations (i.e. prepare to go offline).
+  - name: REMOVING
+    description: Operations that are being REMOVED.
 paths:
   # /Governance:
   #   get:
@@ -107,11 +109,15 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
         
-  /entities/{entityVID}/registrations:  
+  /entities/{entityVID}/registrations-DISABLING:  
     get:
       tags:
-        -  registry
-      summary: List where this Entity is registered (i.e. what other Trust Registries).
+        -  REMOVING
+      summary: |
+        REMOVING as an Entity should signal this directly and it can't (shouldn't be) the 
+        problem of the Trust Registry (System of Record behind it) to maintain this Information.
+        The Entity should be able to provide a list of Registries that it is registered in. Then 
+        integrators can query those systems (using TRP) to confirm.
       parameters:
         - in: path
           name: entityid 

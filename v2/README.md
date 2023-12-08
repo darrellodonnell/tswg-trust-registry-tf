@@ -16,7 +16,9 @@ The TRP does not:
 
 * The UML Diagram refers to the root being an EGFURI (by VID?) but the OAS does not. Need to decide if the API is 1:1 EGFURI:TR and leave any other EGFs in some other place? Defaults?
 
-
+* Different Versions 
+  * TRP
+  * TRoR
 
 ## ISSUE - Querying vs. Snooping
 
@@ -44,6 +46,12 @@ OPTIONS:
 * TR Use Cases - @Antti to 
 * 
 
+INSPIRATION APIs:
+
+* Twilio: https://github.com/twilio/twilio-oai/tree/main/spec/yaml
+  - Versioning
+  - 
+* Stripe: https://github.com/stripe/openapi/tree/master/openapi
 ## UPDATE 2023-12-07
 
 Key changes made:
